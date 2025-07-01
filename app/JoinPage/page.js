@@ -54,7 +54,7 @@ const JoinPage = () => {
         <div className="max-w-4xl mx-auto text-center mb-20">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">Find Your Community</h1>
           <p className="text-lg text-gray-300">
-            Join a peer-driven group aligned with your passion. Whether you're into coding, research, or startups — there's a place for you here.
+            Join a peer-driven group aligned with your passion. Whether you&apos;re into coding, research, or startups — there&apos;s a place for you here.
           </p>
         </div>
 
