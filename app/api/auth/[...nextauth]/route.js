@@ -1,0 +1,84 @@
+import NextAuth from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
+import connectDB from "@/db/mongoosedb";
+import User from "@/models/user";
+import bcrypt from "bcryptjs";
+
+export const authOptions = {
+  providers: [
+    CredentialsProvider({
+      name: "Credentials",
+      credentials: {
+        email: { label: "Email", type: "email" },
+        password: { label: "Password", type: "password" },
+      },
+      async authorize(credentials) {
+        await connectDB();
+
+        const user = await User.findOne({ email: credentials.email });
+        if (!user) {
+          console.log("No user found:", credentials.email);
+          throw new Error("No user found with this email");
+        }
+
+        const isPasswordCorrect = await bcrypt.compare(credentials.password, user.password);
+        if (!isPasswordCorrect) {
+          console.log("Incorrect password for:", credentials.email);
+          throw new Error("Incorrect password");
+        }
+
+        return { id: user._id, name: user.name, email: user.email };
+      },
+    }),
+
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    }),
+  ],
+
+  session: {
+    strategy: "jwt",
+  },
+
+  pages: {
+    signIn: "/login",
+  },
+
+  secret: process.env.NEXTAUTH_SECRET,
+
+  callbacks: {
+    async jwt({ token, user, account, profile }) {
+      // ✅ If credentials login, user.id is already Mongo _id
+      if (user) {
+        token.id = user.id;
+      }
+
+      // ✅ If Google login, manually fetch Mongo user
+      if (account?.provider === "google") {
+        await connectDB();
+        const dbUser = await User.findOne({ email: token.email });
+        if (dbUser) {
+          token.id = dbUser._id;
+        }
+      }
+
+      return token;
+    },
+
+    async session({ session, token }) {
+      if (session?.user && token?.id) {
+        session.user.id = token.id;
+      }
+      return session;
+    },
+
+    async redirect({ url, baseUrl }) {
+      return baseUrl;  // always redirect to "/"
+    },
+  },
+};
+
+const handler = NextAuth(authOptions);
+export { handler as GET, handler as POST };

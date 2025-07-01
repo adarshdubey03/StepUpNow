@@ -1,0 +1,17 @@
+import mongoose from "mongoose";
+
+const mentorSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  title: String,
+  company: String,
+  experience: Number,
+  skills: [String],
+  linkedin: String,
+  bio: String,
+  price: Number,
+  profileImage: String,
+}, { timestamps: true });
+
+export default mongoose.models.Mentor || mongoose.model("Mentor", mentorSchema);
