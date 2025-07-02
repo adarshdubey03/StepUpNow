@@ -47,22 +47,30 @@ export const authOptions = {
   },
 
   secret: process.env.NEXTAUTH_SECRET,
-   debug: true,
+  debug: true,
 
   callbacks: {
     async jwt({ token, user, account }) {
-      // ✅ If credentials login, user.id is already Mongo _id
+      await connectDB();
+
+      // If login via Credentials
       if (user) {
         token.id = user.id;
       }
 
-      // ✅ If Google login, manually fetch Mongo user
+      // If login via Google
       if (account?.provider === "google") {
-        await connectDB();
-        const dbUser = await User.findOne({ email: token.email });
-        if (dbUser) {
-          token.id = dbUser._id;
+        let dbUser = await User.findOne({ email: token.email });
+        if (!dbUser) {
+          console.log("🚀 Creating new user in DB for Google login:", token.email);
+          dbUser = await User.create({
+            name: token.name || "No Name",
+            email: token.email,
+          });
+        } else {
+          console.log("✅ Found existing user in DB for Google login:", token.email);
         }
+        token.id = dbUser._id;
       }
 
       return token;
@@ -76,7 +84,7 @@ export const authOptions = {
     },
 
     async redirect({ baseUrl }) {
-      return baseUrl;  // always redirect to "/"
+      return baseUrl; // always redirect to "/"
     },
   },
 };

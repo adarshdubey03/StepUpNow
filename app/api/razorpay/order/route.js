@@ -3,9 +3,9 @@ import connectDB from "@/db/mongoosedb";
 import Payment from "@/models/payment";
 
 export async function POST(req) {
-  await connectDB(); // ensures DB is connected
+  console.log("🔌 Connecting to DB...");
+  await connectDB();
 
-  // Log environment variables to help debug Vercel config
   console.log("🔑 RAZORPAY_KEY_ID:", process.env.RAZORPAY_KEY_ID);
   console.log("🔑 RAZORPAY_KEY_SECRET:", process.env.RAZORPAY_KEY_SECRET);
   console.log("🔑 NEXT_PUBLIC_RAZORPAY_KEY_ID:", process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID);
@@ -19,23 +19,38 @@ export async function POST(req) {
   }
 
   const body = await req.json();
+  console.log("📦 Incoming request body:", body);
+
+  if (!body.amount) {
+    console.error("🚨 Missing amount in request");
+    return new Response(
+      JSON.stringify({ error: "Amount is required" }),
+      { status: 400, headers: { "Content-Type": "application/json" } }
+    );
+  }
 
   const instance = new Razorpay({
     key_id: process.env.RAZORPAY_KEY_ID,
     key_secret: process.env.RAZORPAY_KEY_SECRET,
   });
 
+  // Make receipt smarter: use userId if exists
+  const receiptId = body.userId 
+    ? `user_${body.userId}_order_${Math.floor(Math.random() * 10000)}`
+    : `guest_order_${Math.floor(Math.random() * 10000)}`;
+
   const options = {
-    amount: body.amount * 100, // amount in paisa
+    amount: body.amount * 100,
     currency: "INR",
-    receipt: "receipt_order_" + Math.floor(Math.random() * 10000),
+    receipt: receiptId,
   };
 
-  try {
-    // Create Razorpay order
-    const order = await instance.orders.create(options);
+  console.log("📝 Creating Razorpay order with options:", options);
 
-    // Also create Payment record in MongoDB
+  try {
+    const order = await instance.orders.create(options);
+    console.log("✅ Razorpay order created:", order);
+
     const payment = await Payment.create({
       user: body.userId || null,
       mentor: body.mentorId || null,
@@ -43,22 +58,21 @@ export async function POST(req) {
       done: false,
     });
 
-    console.log("✅ Created payment record in DB:", payment);
+    console.log("✅ Payment record created in DB:", payment);
 
     return new Response(
       JSON.stringify({
         ...order,
         bookingId: payment._id,
-        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID, // ✅ send key to frontend
+        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
       }),
       { status: 200, headers: { "Content-Type": "application/json" } }
     );
   } catch (err) {
-    console.error("❌ Razorpay order creation failed", err);
+    console.error("❌ Razorpay order creation or DB save failed", err);
     return new Response(
       JSON.stringify({ error: "Failed to create order" }),
       { status: 500, headers: { "Content-Type": "application/json" } }
     );
   }
 }
-
