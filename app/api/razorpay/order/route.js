@@ -24,18 +24,19 @@ export async function POST(req) {
 
         // Also create Payment record in MongoDB
         const payment = await Payment.create({
-            user: body.userId || null,    // if you pass it from frontend later
-            mentor: body.mentorId || null, // same for mentor
+            user: body.userId || null,
+            mentor: body.mentorId || null,
             amount: order.amount,
             done: false
         });
 
         console.log("✅ Created payment record in DB:", payment);
 
-        // Return both Razorpay order and DB booking ID
+        // ✅ FIXED: Return key to frontend too
         return Response.json({
             ...order,
-            bookingId: payment._id
+            bookingId: payment._id,
+            key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID
         });
     } catch (err) {
         console.error("❌ Razorpay order creation failed", err);

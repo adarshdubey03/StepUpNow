@@ -38,72 +38,72 @@ export default function BookMentorPage() {
   }, [id]);
 
   const handlePayment = async () => {
-    console.log("🚀 Pay button clicked");
+  console.log("🚀 Pay button clicked");
 
-    const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js");
-    if (!res) {
-      alert("Razorpay SDK failed to load.");
-      console.log("❌ Razorpay SDK load failed.");
-      return;
-    }
-    console.log("✅ Razorpay SDK loaded.");
+  const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js");
+  if (!res) {
+    alert("Razorpay SDK failed to load.");
+    console.log("❌ Razorpay SDK load failed.");
+    return;
+  }
+  console.log("✅ Razorpay SDK loaded.");
 
-    console.log("📡 Calling /api/razorpay/order...");
-    const orderRes = await fetch("/api/razorpay/order", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        amount: mentor.price,
-        userId: session?.user?.id || null,  // <-- updated here
-        mentorId: mentor._id
-      }),
-    });
+  console.log("📡 Calling /api/razorpay/order...");
+  const orderRes = await fetch("/api/razorpay/order", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      amount: mentor.price,
+      userId: session?.user?.id || null,
+      mentorId: mentor._id
+    }),
+  });
 
-    const orderData = await orderRes.json();
-    console.log("🧾 Order created:", orderData);
+  const orderData = await orderRes.json();
+  console.log("🧾 Order created:", orderData);
 
-    const options = {
-      key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
-      amount: orderData.amount,
-      currency: orderData.currency,
-      name: "StepUpNow",
-      description: `Session with ${mentor.name}`,
-      order_id: orderData.id,
-      handler: async function (response) {
-        console.log("✅ Payment completed:", response);
+  const options = {
+    key: orderData.key,  // ✅ fetched from backend
+    amount: orderData.amount,
+    currency: orderData.currency,
+    name: "StepUpNow",
+    description: `Session with ${mentor.name}`,
+    order_id: orderData.id,
+    handler: async function (response) {
+      console.log("✅ Payment completed:", response);
 
-        const verifyRes = await fetch("/api/razorpay/verify", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            razorpay_order_id: response.razorpay_order_id,
-            razorpay_payment_id: response.razorpay_payment_id,
-            razorpay_signature: response.razorpay_signature,
-            bookingId: orderData.bookingId,
-          }),
-        });
+      const verifyRes = await fetch("/api/razorpay/verify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          razorpay_order_id: response.razorpay_order_id,
+          razorpay_payment_id: response.razorpay_payment_id,
+          razorpay_signature: response.razorpay_signature,
+          bookingId: orderData.bookingId,
+        }),
+      });
 
-        const verifyData = await verifyRes.json();
-        console.log("🔍 Verify response:", verifyData);
+      const verifyData = await verifyRes.json();
+      console.log("🔍 Verify response:", verifyData);
 
-        if (verifyData.status === "success") {
-          alert("Payment successful and verified! 🎉");
-        } else {
-          alert("Payment verification failed. Please contact support.");
-        }
-      },
-      prefill: {
-        name: "Test User",
-        email: "test@example.com",
-        contact: "9999999999",
-      },
-      theme: { color: "#6366F1" },
-    };
-
-    console.log("🚀 Opening Razorpay Checkout...");
-    const rzp = new window.Razorpay(options);
-    rzp.open();
+      if (verifyData.status === "success") {
+        alert("Payment successful and verified! 🎉");
+      } else {
+        alert("Payment verification failed. Please contact support.");
+      }
+    },
+    prefill: {
+      name: "Test User",
+      email: "test@example.com",
+      contact: "9999999999",
+    },
+    theme: { color: "#6366F1" },
   };
+
+  console.log("🚀 Opening Razorpay Checkout...");
+  const rzp = new window.Razorpay(options);
+  rzp.open();
+};
 
   if (loading) {
     return (
