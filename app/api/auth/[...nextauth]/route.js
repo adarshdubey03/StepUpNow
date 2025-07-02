@@ -47,9 +47,10 @@ export const authOptions = {
   },
 
   secret: process.env.NEXTAUTH_SECRET,
+   debug: true,
 
   callbacks: {
-    async jwt({ token, user, account, profile }) {
+    async jwt({ token, user, account }) {
       // ✅ If credentials login, user.id is already Mongo _id
       if (user) {
         token.id = user.id;
@@ -74,7 +75,7 @@ export const authOptions = {
       return session;
     },
 
-    async redirect({ url, baseUrl }) {
+    async redirect({ baseUrl }) {
       return baseUrl;  // always redirect to "/"
     },
   },
