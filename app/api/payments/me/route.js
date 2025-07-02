@@ -16,19 +16,22 @@ export async function GET(req) {
 
     if (!session || !session.user?.id) {
       console.log("🚫 Unauthorized - no session user id");
-      return NextResponse.json([], { status: 200 }); // ✅ return empty array on unauthorized
+      return NextResponse.json([], { status: 200 }); 
     }
 
-    const payments = await Payment.find({ user: session.user.id })
+    let payments = await Payment.find({ user: session.user.id })
       .populate("mentor")
       .sort({ createdAt: -1 });
 
+    // 💡 Ensure always array
+    if (!Array.isArray(payments)) payments = [];
+
     console.log("💰 Payments fetched:", payments);
 
-    return NextResponse.json(payments || []); // ✅ always return array
+    return NextResponse.json(payments);
 
   } catch (err) {
     console.error("🔥 Error in /api/payments/me:", err);
-    return NextResponse.json([], { status: 500 }); // ✅ return array on error too
+    return NextResponse.json([], { status: 500 });
   }
 }
