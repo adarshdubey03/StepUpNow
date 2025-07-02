@@ -7,11 +7,16 @@ const mentorSchema = new mongoose.Schema({
   title: String,
   company: String,
   experience: Number,
-  skills: [String],
+  skills: [String],             // or expertise, based on your earlier naming
   linkedin: String,
   bio: String,
   price: Number,
   profileImage: String,
+  verified: {                   // NEW field to track approval
+    type: Boolean,
+    default: false
+  }
 }, { timestamps: true });
 
 export default mongoose.models.Mentor || mongoose.model("Mentor", mentorSchema);
+
