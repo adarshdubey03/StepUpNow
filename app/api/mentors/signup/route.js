@@ -9,7 +9,6 @@ export async function POST(req) {
 
     const body = await req.json();
 
-    // Hash the password before saving
     const hashedPassword = await bcrypt.hash(body.password, 12);
 
     const newMentor = new Mentor({

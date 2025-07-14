@@ -11,13 +11,15 @@
   "dependencies": {
     "bcryptjs": "^3.0.2",
     "crypto": "^1.0.1",
+    "framer-motion": "^12.23.3",
     "mongoose": "^8.16.1",
     "next": "15.3.4",
     "next-auth": "^4.24.11",
     "nodemailer": "^6.10.1",
     "razorpay": "^2.9.6",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "tailwind-scrollbar": "^4.0.2"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

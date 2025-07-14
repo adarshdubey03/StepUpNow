@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import connectDB from "@/db/mongoosedb";
 import Mentor from "@/models/mentor";
 
-// POST /api/mentors - create mentor
 export async function POST(req) {
   try {
     await connectDB();
@@ -24,7 +23,6 @@ export async function POST(req) {
   }
 }
 
-// GET /api/mentors - get only verified mentors
 export async function GET() {
   try {
     await connectDB();

@@ -1,9 +1,10 @@
 import React from 'react'
+import Link from 'next/link';
 
 const Mentors = () => {
   return (
     <div>
-            {/* Meet the Mentors Section */}
+      {/* Meet the Mentors Section */}
       <section className="py-20 border-t border-gray-700 animate-fadeIn text-white bg-gradient-to-r from-black via-gray-900 to-black">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-16">
@@ -17,13 +18,32 @@ const Mentors = () => {
           {/* Mentors Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
             {[
-              { name: "Adarsh Dubey", college: "IIT Delhi · CSE · AIR 512", place: "Placed at Google" },
-              { name: "Rohit Prajapat", college: "NIT Trichy · ECE · AIR 1023", place: "Intern @ Qualcomm" },
-              { name: "Samyak Shende", college: "IIIT Hyderabad · CS · AIR 312", place: "Placed at Atlassian" },
+              {
+                name: "Adarsh Dubey",
+                college: "IIT Delhi · CSE · AIR 512",
+                place: "Placed at Google",
+                img: "/adarsh.jpg"
+              },
+              {
+                name: "Rohit Prajapat",
+                college: "NIT Trichy · ECE · AIR 1023",
+                place: "Intern @ Qualcomm",
+                img: "/rohit.jpg"
+              },
+              {
+                name: "Samyak Shende",
+                college: "IIIT Hyderabad · CS · AIR 312",
+                place: "Placed at Atlassian",
+                img: "/sam.jpg"
+              },
             ].map((mentor, idx) => (
               <div key={idx} className="bg-gray-900/60 border border-gray-700 rounded-2xl p-6 shadow-xl hover:shadow-2xl transition">
-                <div className="w-24 h-24 rounded-full overflow-hidden mx-auto mb-4 border border-gray-600 flex items-center justify-center bg-gray-800 text-gray-500 text-sm">
-                  Image
+                <div className="w-24 h-24 rounded-full overflow-hidden mx-auto mb-4 border border-gray-600 flex items-center justify-center bg-gray-800">
+                  <img
+                    src={mentor.img}
+                    alt={mentor.name}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <div className="text-center">
                   <h3 className="text-xl font-semibold">{mentor.name}</h3>
@@ -34,11 +54,12 @@ const Mentors = () => {
             ))}
           </div>
 
+
           {/* CTA Button */}
           <div className="text-center mt-6 mb-4">
-            <a href="#mentors" className="inline-block px-6 py-3 bg-white text-black font-semibold rounded-xl hover:bg-gray-200 transition">
+            <Link href="/mentors" className="inline-block px-6 py-3 bg-white text-black font-semibold rounded-xl hover:bg-gray-200 transition">
               Explore More Mentors
-            </a>
+            </Link>
           </div>
         </div>
       </section>

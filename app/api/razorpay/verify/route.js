@@ -17,12 +17,10 @@ export async function POST(req) {
     .digest("hex");
 
   if (sign === razorpay_signature) {
-    console.log("✅ Payment verified successfully!");
+    console.log(" Payment verified successfully!");
 
-    // Update payment to done
     const payment = await Payment.findByIdAndUpdate(bookingId, { done: true }, { new: true });
 
-    // Fetch user & mentor to personalize email
     if (payment) {
       const user = await User.findById(payment.user);
       const mentor = await Mentor.findById(payment.mentor);

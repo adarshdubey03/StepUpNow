@@ -24,10 +24,15 @@ const MentorSignup = () => {
                     </button>
                 </div>
 
-                {/* Right: Visual Placeholder */}
-                <div className="w-full h-96 border border-gray-500 rounded-xl flex items-center justify-center bg-gray-900">
-                    <span className="text-gray-400">[ Mentor Graphic / Illustration ]</span>
+                {/* Right: Visual with image */}
+                <div className="w-full h-96 border border-gray-500 rounded-xl flex items-center justify-center bg-gray-900 overflow-hidden">
+                    <img
+                        src="/mentorbecome.jpg"
+                        alt="Mentor illustration"
+                        className="object-cover w-full h-full"
+                    />
                 </div>
+
             </div>
         </section>
     );

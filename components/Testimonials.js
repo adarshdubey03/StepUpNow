@@ -1,9 +1,10 @@
 import React from 'react'
+import Link from 'next/link';
 
 const Testimonials = () => {
   return (
     <div>
-       <section className="py-24 border-t border-gray-700 bg-black text-white">
+      <section className="py-24 border-t border-gray-700 bg-black text-white">
         <div className="max-w-6xl mx-auto px-6">
           <div className="text-center mb-20">
             <h2 className="text-4xl font-extrabold">They Stepped Up — Now It’s Your Turn</h2>
@@ -48,12 +49,13 @@ const Testimonials = () => {
 
           {/* CTA */}
           <div className="text-center mt-20">
-            <a
-              href="#join"
+            <Link
+              href="/mentors"
+
               className="inline-block px-6 py-3 bg-white text-black font-semibold rounded-xl hover:bg-gray-200 transition"
             >
               Find Your Mentor Now
-            </a>
+            </Link>
           </div>
         </div>
       </section>

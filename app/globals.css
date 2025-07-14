@@ -4,3 +4,20 @@ body{
     background-color: #000;
     color: #fff;
 }
+
+/* style scrollbar */
+.scrollbar-custom::-webkit-scrollbar {
+  width: 8px;
+}
+.scrollbar-custom::-webkit-scrollbar-track {
+  background: black;
+}
+.scrollbar-custom::-webkit-scrollbar-thumb {
+  background-color: #4B5563; /* gray-800 */
+  border-radius: 4px;
+}
+.scrollbar-custom {
+  scrollbar-color: #4B5563 black; /* thumb track */
+  scrollbar-width: thin;
+}
+

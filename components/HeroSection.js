@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 const homeImg = '/home3.png';
 
 function HeroSection() {
@@ -15,12 +16,12 @@ function HeroSection() {
                     <p className="text-xl font-medium">
                         Book a session for just ₹349 and get real answers.
                     </p>
-                    <a
-                        href="#join"
+                    <Link
+                        href="/mentors"
                         className="bg-white text-black px-6 py-3 rounded-md text-lg hover:bg-gray-100 transform hover:scale-105 transition duration-300 shadow-md inline-block"
                     >
                         Book Now
-                    </a>
+                    </Link>
                 </div>
                 <div className="md:col-span-4 w-full h-96 border border-gray-500 rounded-xl flex items-center justify-center bg-gray-800 overflow-hidden">
                     <img src={homeImg} alt="Hero" className="h-full w-full object-cover rounded-xl" />

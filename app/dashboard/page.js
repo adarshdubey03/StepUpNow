@@ -49,10 +49,9 @@ export default function Dashboard() {
   return (
     <div className="min-h-[85vh] bg-black text-white flex items-center justify-center px-6 py-12">
       <div className="w-full max-w-6xl mx-auto flex flex-col md:flex-row gap-8 border border-gray-800 p-8 rounded-xl bg-gray-950 shadow-xl">
-        
+
         {/* LEFT COLUMN: Profile + Stats */}
         <div className="flex-1 flex flex-col items-center md:items-start text-center md:text-left space-y-6">
-          {/* Profile */}
           <div className="flex flex-col items-center md:items-start space-y-4">
             <div className="w-24 h-24 rounded-full bg-gray-700 flex items-center justify-center">
               <svg
@@ -74,7 +73,6 @@ export default function Dashboard() {
             </h2>
           </div>
 
-          {/* Stats */}
           <div className="w-full space-y-4">
             <div className="bg-gray-900 p-4 rounded-lg shadow-md flex flex-col items-center md:items-start">
               <h3 className="text-xl font-semibold mb-1">Groups Joined</h3>
@@ -103,8 +101,14 @@ export default function Dashboard() {
           ) : payments.length === 0 ? (
             <p className="text-gray-400">You have no bookings yet.</p>
           ) : (
-            <div className="space-y-4">
-              {payments.map((payment) => (
+            <div
+              className="max-h-96 overflow-y-auto pr-2"
+              style={{
+                scrollbarWidth: "thin",
+                scrollbarColor: "#4B5563 black"
+              }}
+            >
+              {payments.map((payment, idx) => (
                 <div
                   key={payment._id}
                   className="bg-gray-900 p-4 rounded-lg shadow flex flex-col md:flex-row md:items-center justify-between"
@@ -114,18 +118,18 @@ export default function Dashboard() {
                       Session with {payment.mentor?.name || "Mentor"}
                     </h4>
                     <p className="text-gray-400 text-sm">
-                      Amount: ₹{payment.amount / 100} 
+                      Amount: ₹{payment.amount / 100}
                     </p>
                   </div>
                   <span
-                    className={`mt-2 md:mt-0 px-4 py-1 rounded-full text-sm font-semibold ${
-                      payment.done
+                    className={`mt-2 md:mt-0 px-4 py-1 rounded-full text-sm font-semibold min-w-[110px] text-center ${payment.done
                         ? "bg-green-600 text-white"
                         : "bg-yellow-600 text-white"
-                    }`}
+                      }`}
                   >
                     {payment.done ? "Completed" : "Pending"}
                   </span>
+
                 </div>
               ))}
             </div>

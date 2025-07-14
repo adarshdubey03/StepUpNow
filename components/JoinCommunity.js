@@ -26,9 +26,14 @@ const JoinCommunity = () => {
                         </button>
                     </div>
 
-                    <div className="w-full h-96 border border-gray-500 rounded-xl flex items-center justify-center bg-gray-900">
-                        <span className="text-gray-400">[ Image Placeholder ]</span>
+                    <div className="w-full h-96 border border-gray-500 rounded-xl flex items-center justify-center bg-gray-900 overflow-hidden">
+                        <img
+                            src="/joingroup.jpg"
+                            alt="Join the Community"
+                            className="object-cover w-full h-full"
+                        />
                     </div>
+
 
                 </div>
             </section>

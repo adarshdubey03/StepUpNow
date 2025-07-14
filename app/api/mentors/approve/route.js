@@ -11,7 +11,6 @@ export async function PATCH(req) {
       return NextResponse.json({ error: "Missing mentor id" }, { status: 400 });
     }
 
-    // Find mentor by ID and set verified true
     const mentor = await Mentor.findByIdAndUpdate(id, { verified: true }, { new: true });
 
     if (!mentor) {

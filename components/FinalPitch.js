@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 
 const FinalPitch = () => {
@@ -26,9 +27,9 @@ const FinalPitch = () => {
           </div>
 
           <div className="mt-8">
-            <a href="#join" className="inline-block px-8 py-4 bg-white text-black font-bold rounded-xl hover:bg-gray-200 transition text-lg shadow-lg">
+            <Link href="/mentors" className="inline-block px-8 py-4 bg-white text-black font-bold rounded-xl hover:bg-gray-200 transition text-lg shadow-lg">
               Start Your Journey Now
-            </a>
+            </Link>
           </div>
         </div>
       </section>

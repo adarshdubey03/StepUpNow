@@ -7,12 +7,12 @@ const mentorSchema = new mongoose.Schema({
   title: String,
   company: String,
   experience: Number,
-  skills: [String],             // or expertise, based on your earlier naming
+  skills: [String],
   linkedin: String,
   bio: String,
   price: Number,
   profileImage: String,
-  verified: {                   // NEW field to track approval
+  verified: {                   
     type: Boolean,
     default: false
   }
