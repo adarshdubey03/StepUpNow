@@ -9,6 +9,7 @@ export default function Dashboard() {
   const router = useRouter();
   const [payments, setPayments] = useState([]);
   const [loadingPayments, setLoadingPayments] = useState(true);
+  const [showConfirmLogout, setShowConfirmLogout] = useState(false);
 
   useEffect(() => {
     if (status === "unauthenticated") {
@@ -47,7 +48,7 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="min-h-[85vh] bg-black text-white flex items-center justify-center px-6 py-12">
+    <div className="relative min-h-[85vh] bg-black text-white flex items-center justify-center px-6 py-12">
       <div className="w-full max-w-6xl mx-auto flex flex-col md:flex-row gap-8 border border-gray-800 p-8 rounded-xl bg-gray-950 shadow-xl">
 
         {/* LEFT COLUMN: Profile + Stats */}
@@ -85,8 +86,8 @@ export default function Dashboard() {
           </div>
 
           <button
-            onClick={() => signOut({ callbackUrl: "/login" })}
-            className="mt-6 bg-white text-black px-6 py-3 rounded hover:bg-gray-200 transition"
+            onClick={() => setShowConfirmLogout(true)}
+            className="mt-6 cursor-pointer bg-white text-black px-6 py-3 rounded hover:bg-gray-200 transition"
           >
             Logout
           </button>
@@ -108,7 +109,7 @@ export default function Dashboard() {
                 scrollbarColor: "#4B5563 black"
               }}
             >
-              {payments.map((payment, idx) => (
+              {payments.map((payment) => (
                 <div
                   key={payment._id}
                   className="bg-gray-900 p-4 rounded-lg shadow flex flex-col md:flex-row md:items-center justify-between"
@@ -123,19 +124,44 @@ export default function Dashboard() {
                   </div>
                   <span
                     className={`mt-2 md:mt-0 px-4 py-1 rounded-full text-sm font-semibold min-w-[110px] text-center ${payment.done
-                        ? "bg-green-600 text-white"
-                        : "bg-yellow-600 text-white"
-                      }`}
+                      ? "bg-green-600 text-white"
+                      : "bg-yellow-600 text-white"
+                    }`}
                   >
                     {payment.done ? "Completed" : "Pending"}
                   </span>
-
                 </div>
               ))}
             </div>
           )}
         </div>
       </div>
+
+      {/* Custom Logout Confirmation Modal */}
+      {showConfirmLogout && (
+        <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
+          <div className="bg-gray-950 border border-gray-700 rounded-xl p-8 max-w-sm w-full shadow-xl">
+            <h2 className="text-2xl font-semibold mb-4">Confirm Logout</h2>
+            <p className="text-gray-400 mb-6">
+              Are you sure you want to logout?
+            </p>
+            <div className="flex justify-end space-x-4">
+              <button
+                onClick={() => setShowConfirmLogout(false)}
+                className="px-4 cursor-pointer py-2 bg-gray-700 text-white rounded hover:bg-gray-600 transition"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => signOut({ callbackUrl: "/login" })}
+                className="px-4 cursor-pointer py-2 bg-red-600 text-white rounded hover:bg-red-700 transition"
+              >
+                Logout
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

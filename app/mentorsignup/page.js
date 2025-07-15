@@ -43,8 +43,8 @@ export default function MentorSignup() {
       if (!res.ok) {
         setError(data.error || "Something went wrong");
       } else {
-        setSuccess("Mentor profile created! Redirecting...");
-        setTimeout(() => (window.location.href = "/dashboard"), 2000);
+        setSuccess("Mentor profile created! You will be listed in mentors page once you get approved. Redirecting...");
+        setTimeout(() => (window.location.href = "/dashboard"), 3000);
       }
     } catch (err) {
       setError("Network error. Please try again.");
