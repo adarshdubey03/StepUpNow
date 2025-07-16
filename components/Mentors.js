@@ -19,7 +19,7 @@ const Mentors = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-10 justify-items-center">
             {[
               {
-                name: "Adarsh Dubey",
+                name: "Nishant Dangi",
                 college: "IIT Delhi · CSE · AIR 512",
                 place: "Placed at Google",
                 img: "/adarsh.jpg"

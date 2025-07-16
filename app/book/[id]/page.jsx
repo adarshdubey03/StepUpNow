@@ -154,7 +154,7 @@ export default function BookMentorPage() {
           </div>
           <button
             onClick={handlePayment}
-            className="bg-white text-black py-3 rounded hover:bg-gray-200 transition text-lg font-semibold"
+            className="bg-white cursor-pointer text-black py-3 rounded hover:bg-gray-200 transition text-lg font-semibold"
           >
             Pay ₹{mentor.price}
           </button>
