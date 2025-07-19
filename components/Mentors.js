@@ -1,5 +1,6 @@
 import React from 'react'
 import Link from 'next/link';
+import Image from 'next/image';
 
 const Mentors = () => {
   return (
@@ -42,9 +43,11 @@ const Mentors = () => {
                 className="bg-gray-900/60 border border-gray-700 rounded-2xl p-4 md:p-6 shadow-xl hover:scale-[1.02] hover:shadow-2xl transition space-y-2 w-full max-w-xs"
               >
                 <div className="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden mx-auto border border-gray-600 flex items-center justify-center bg-gray-800">
-                  <img
+                  <Image
                     src={mentor.img}
                     alt={mentor.name}
+                    width={96}
+                    height={96}
                     className="w-full h-full object-cover"
                   />
                 </div>

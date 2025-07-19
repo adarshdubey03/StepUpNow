@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 function HeroSection() {
   return (
@@ -8,10 +9,14 @@ function HeroSection() {
         
         {/* IMAGE MOBILE */}
         <div className="md:hidden mb-1 w-full h-64 border border-gray-500 rounded-xl flex items-center justify-center bg-gray-800 overflow-hidden">
-          <img
+          <Image
             src="/hero.jpg"
             alt="Hero illustration"
-            className="h-full w-full object-cover rounded-xl"
+            fill
+            style={{ objectFit: 'cover' }}
+            className="rounded-xl"
+            sizes="(max-width: 768px) 100vw, 100vw"
+            priority
           />
         </div>
 
@@ -35,11 +40,15 @@ function HeroSection() {
         </div>
 
         {/* IMAGE DESKTOP */}
-        <div className="hidden md:flex md:col-span-4 w-full h-96 border border-gray-500 rounded-xl items-center justify-center bg-gray-800 overflow-hidden">
-          <img
+        <div className="hidden md:flex md:col-span-4 w-full h-96 border border-gray-500 rounded-xl items-center justify-center bg-gray-800 overflow-hidden relative">
+          <Image
             src="/hero.jpg"
             alt="Hero illustration"
-            className="h-full w-full object-cover rounded-xl"
+            fill
+            style={{ objectFit: 'cover' }}
+            className="rounded-xl"
+            sizes="(min-width: 768px) 100vw, 100vw"
+            priority
           />
         </div>
       </div>

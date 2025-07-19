@@ -1,6 +1,7 @@
 "use client";
 import React from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 const JoinCommunity = () => {
     const router = useRouter();
@@ -16,11 +17,14 @@ const JoinCommunity = () => {
                     <div className="flex flex-col md:grid md:grid-cols-2 gap-12 items-center">
 
                         {/* IMAGE */}
-                        <div className="w-full h-80 md:h-96 border border-gray-500 rounded-xl flex items-center justify-center bg-gray-900 overflow-hidden">
-                            <img
+                        <div className="w-full h-80 md:h-96 border border-gray-500 rounded-xl relative bg-gray-900 overflow-hidden">
+                            <Image
                                 src="/joingroup.jpg"
                                 alt="Join the Community"
-                                className="object-cover w-full h-full rounded-xl"
+                                fill
+                                className="object-cover rounded-xl"
+                                sizes="(min-width: 768px) 100vw, 100vw"
+                                priority
                             />
                         </div>
 
@@ -45,7 +49,7 @@ const JoinCommunity = () => {
                 </div>
             </section>
         </div>
-    )
-}
+    );
+};
 
 export default JoinCommunity;
