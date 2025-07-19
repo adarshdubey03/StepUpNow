@@ -9,7 +9,8 @@ export default function FooterWrapper() {
   const hideFooter =
     pathname === "/login" ||
     pathname === "/Signup" ||
-    pathname.startsWith("/dashboard"); // ✅ Hides on dashboard and its subroutes
+    pathname.startsWith("/dashboard") ||
+    pathname.startsWith("/book/"); // ✅ Hides on /book/[id] pages
 
   if (hideFooter) return null;
 

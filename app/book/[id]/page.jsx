@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { useSession } from "next-auth/react"; // <-- ADDED THIS
+import { useSession } from "next-auth/react";
+import Loader from "@/components/Loader"; // ✅ IMPORTED
 
-// load Razorpay script
 function loadScript(src) {
   return new Promise((resolve) => {
     const script = document.createElement("script");
@@ -17,7 +17,7 @@ function loadScript(src) {
 
 export default function BookMentorPage() {
   const { id } = useParams();
-  const { data: session } = useSession(); // <-- ADDED THIS
+  const { data: session } = useSession();
   const [mentor, setMentor] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -38,79 +38,64 @@ export default function BookMentorPage() {
   }, [id]);
 
   const handlePayment = async () => {
-  console.log("🚀 Pay button clicked");
+    const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js");
+    if (!res) {
+      alert("Razorpay SDK failed to load.");
+      return;
+    }
 
-  const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js");
-  if (!res) {
-    alert("Razorpay SDK failed to load.");
-    console.log("❌ Razorpay SDK load failed.");
-    return;
-  }
-  console.log("✅ Razorpay SDK loaded.");
+    const orderRes = await fetch("/api/razorpay/order", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        amount: mentor.price,
+        userId: session?.user?.id || null,
+        mentorId: mentor._id
+      }),
+    });
 
-  console.log("📡 Calling /api/razorpay/order...");
-  const orderRes = await fetch("/api/razorpay/order", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      amount: mentor.price,
-      userId: session?.user?.id || null,
-      mentorId: mentor._id
-    }),
-  });
+    const orderData = await orderRes.json();
 
-  const orderData = await orderRes.json();
-  console.log("🧾 Order created:", orderData);
+    const options = {
+      key: orderData.key,
+      amount: orderData.amount,
+      currency: orderData.currency,
+      name: "StepUpNow",
+      description: `Session with ${mentor.name}`,
+      order_id: orderData.id,
+      handler: async function (response) {
+        const verifyRes = await fetch("/api/razorpay/verify", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            razorpay_order_id: response.razorpay_order_id,
+            razorpay_payment_id: response.razorpay_payment_id,
+            razorpay_signature: response.razorpay_signature,
+            bookingId: orderData.bookingId,
+          }),
+        });
 
-  const options = {
-    key: orderData.key,  // ✅ fetched from backend
-    amount: orderData.amount,
-    currency: orderData.currency,
-    name: "StepUpNow",
-    description: `Session with ${mentor.name}`,
-    order_id: orderData.id,
-    handler: async function (response) {
-      console.log("✅ Payment completed:", response);
+        const verifyData = await verifyRes.json();
+        if (verifyData.status === "success") {
+          alert("Payment successful and verified! 🎉");
+        } else {
+          alert("Payment verification failed. Please contact support.");
+        }
+      },
+      prefill: {
+        name: "Test User",
+        email: "test@example.com",
+        contact: "9999999999",
+      },
+      theme: { color: "#6366F1" },
+    };
 
-      const verifyRes = await fetch("/api/razorpay/verify", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          razorpay_order_id: response.razorpay_order_id,
-          razorpay_payment_id: response.razorpay_payment_id,
-          razorpay_signature: response.razorpay_signature,
-          bookingId: orderData.bookingId,
-        }),
-      });
-
-      const verifyData = await verifyRes.json();
-      console.log("🔍 Verify response:", verifyData);
-
-      if (verifyData.status === "success") {
-        alert("Payment successful and verified! 🎉");
-      } else {
-        alert("Payment verification failed. Please contact support.");
-      }
-    },
-    prefill: {
-      name: "Test User",
-      email: "test@example.com",
-      contact: "9999999999",
-    },
-    theme: { color: "#6366F1" },
+    const rzp = new window.Razorpay(options);
+    rzp.open();
   };
 
-  console.log("🚀 Opening Razorpay Checkout...");
-  const rzp = new window.Razorpay(options);
-  rzp.open();
-};
-
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center text-white bg-black">
-        Loading...
-      </div>
-    );
+    return <Loader />; // ✅ REPLACED INLINE LOADER
   }
 
   if (!mentor) {
@@ -124,7 +109,6 @@ export default function BookMentorPage() {
   return (
     <div className="min-h-screen bg-black text-white flex items-center justify-center px-6 py-12">
       <div className="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-12 border border-gray-700 p-8 rounded-xl bg-gray-900 shadow-lg">
-
         {/* LEFT: Mentor details */}
         <div className="space-y-6 flex flex-col items-center md:items-start text-center md:text-left">
           <img
@@ -159,7 +143,6 @@ export default function BookMentorPage() {
             Pay ₹{mentor.price}
           </button>
         </div>
-
       </div>
     </div>
   );

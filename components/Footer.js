@@ -18,34 +18,32 @@ const Footer = () => {
       <div className="max-w-6xl mx-auto space-y-12">
         {/* Logo and Description */}
         <div className="space-y-8 max-w-sm">
-          {/* Uncomment and replace /logo.png with actual logo if needed */}
-          {/* <Image src="/logo.png" alt="StepUpNow Logo" width={150} height={50} /> */}
-          <h1 className="text-3xl font-bold">StepUpNow</h1>
+          <h2 className="text-3xl font-bold">StepUpNow</h2>
           <p className="text-gray-300 text-lg leading-relaxed">
-            India&rsquo;s first community-based mentorship platform that connects freshers with placed seniors to help them step up with guidance, confidence, and clarity.
+            Empowering freshers with mentorship from those who’ve made it — real stories, real guidance, real results.
           </p>
         </div>
 
         {/* Footer Columns */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-          <nav>
-            <h4 className="font-semibold mb-6 text-xl">Explore</h4>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10" role="navigation" aria-label="Footer links">
+          <nav aria-label="Explore">
+            <h3 className="font-semibold mb-6 text-xl">Explore</h3>
             <ul className="space-y-3 text-base text-gray-300">
               <li><Link href="/">Home</Link></li>
               <li><Link href="/mentors">Mentors</Link></li>
               <li><Link href="/mentorsignup">Become a Mentor</Link></li>
             </ul>
           </nav>
-          <nav>
-            <h4 className="font-semibold mb-6 text-xl">Connect</h4>
+          <nav aria-label="Connect">
+            <h3 className="font-semibold mb-6 text-xl">Connect</h3>
             <ul className="space-y-3 text-base text-gray-300">
               <li><Link href="/contact">Contact</Link></li>
               <li><a href="mailto:support@stepupnow.in">Email Support</a></li>
               <li><Link href="/community">Community</Link></li>
             </ul>
           </nav>
-          <nav>
-            <h4 className="font-semibold mb-6 text-xl">Legal</h4>
+          <nav aria-label="Legal">
+            <h3 className="font-semibold mb-6 text-xl">Legal</h3>
             <ul className="space-y-3 text-base text-gray-300">
               <li><Link href="/privacy">Privacy Policy</Link></li>
               <li><Link href="/terms">Terms of Use</Link></li>
@@ -55,7 +53,7 @@ const Footer = () => {
 
         {/* Social + Language */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center pt-6 gap-6">
-          <div className="flex flex-wrap gap-8 text-2xl text-gray-300">
+          <div className="flex flex-wrap gap-8 text-2xl text-gray-300" aria-label="Social Media">
             <a href="#" aria-label="Instagram" className="hover:text-white"><FaInstagram /></a>
             <a href="#" aria-label="LinkedIn" className="hover:text-white"><FaLinkedin /></a>
             <a href="#" aria-label="Twitter" className="hover:text-white"><FaTwitter /></a>
