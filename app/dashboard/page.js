@@ -125,13 +125,7 @@ export default function Dashboard() {
           </div>
         )}
 
-        {/* SLOT FORM (Only for mentors) */}
-        {session?.user?.role === "mentor" && (
-          <div className="mt-6 bg-gray-900 p-6 rounded-lg shadow-md">
-            <h3 className="text-xl font-semibold mb-4">Create Available Slot</h3>
-            <SlotForm />
-          </div>
-        )}
+        
       </div>
     </div>
 
