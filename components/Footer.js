@@ -1,5 +1,7 @@
 "use client";
 import React from "react";
+import Image from "next/image";
+import Link from "next/link";
 import {
   FaInstagram,
   FaLinkedin,
@@ -16,9 +18,11 @@ const Footer = () => {
       <div className="max-w-6xl mx-auto space-y-12">
         {/* Logo and Description */}
         <div className="space-y-8 max-w-sm">
+          {/* Uncomment and replace /logo.png with actual logo if needed */}
+          {/* <Image src="/logo.png" alt="StepUpNow Logo" width={150} height={50} /> */}
           <h1 className="text-3xl font-bold">StepUpNow</h1>
           <p className="text-gray-300 text-lg leading-relaxed">
-           India&rsquo;s first community-based mentorship platform that connects freshers with placed seniors to help them step up with guidance, confidence, and clarity.
+            India&rsquo;s first community-based mentorship platform that connects freshers with placed seniors to help them step up with guidance, confidence, and clarity.
           </p>
         </div>
 
@@ -27,31 +31,31 @@ const Footer = () => {
           <nav>
             <h4 className="font-semibold mb-6 text-xl">Explore</h4>
             <ul className="space-y-3 text-base text-gray-300">
-              <li><a href="/">Home</a></li>
-              <li><a href="/mentors">Mentors</a></li>
-              <li><a href="/mentorsignup">Become a Mentor</a></li>
+              <li><Link href="/">Home</Link></li>
+              <li><Link href="/mentors">Mentors</Link></li>
+              <li><Link href="/mentorsignup">Become a Mentor</Link></li>
             </ul>
           </nav>
           <nav>
             <h4 className="font-semibold mb-6 text-xl">Connect</h4>
             <ul className="space-y-3 text-base text-gray-300">
-              <li><a href="/contact">Contact</a></li>
+              <li><Link href="/contact">Contact</Link></li>
               <li><a href="mailto:support@stepupnow.in">Email Support</a></li>
-              <li><a href="/community">Community</a></li>
+              <li><Link href="/community">Community</Link></li>
             </ul>
           </nav>
           <nav>
             <h4 className="font-semibold mb-6 text-xl">Legal</h4>
             <ul className="space-y-3 text-base text-gray-300">
-              <li><a href="/privacy">Privacy Policy</a></li>
-              <li><a href="/terms">Terms of Use</a></li>
+              <li><Link href="/privacy">Privacy Policy</Link></li>
+              <li><Link href="/terms">Terms of Use</Link></li>
             </ul>
           </nav>
         </div>
 
         {/* Social + Language */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center pt-6 gap-6">
-          <div className="flex flex-wrap gap-6 text-2xl text-gray-300">
+          <div className="flex flex-wrap gap-10 text-2xl text-gray-300">
             <a href="#" aria-label="Instagram" className="hover:text-white"><FaInstagram /></a>
             <a href="#" aria-label="LinkedIn" className="hover:text-white"><FaLinkedin /></a>
             <a href="#" aria-label="Twitter" className="hover:text-white"><FaTwitter /></a>
