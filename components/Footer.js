@@ -18,7 +18,7 @@ const Footer = () => {
         <div className="space-y-8 max-w-sm">
           <h1 className="text-3xl font-bold">StepUpNow</h1>
           <p className="text-gray-300 text-lg leading-relaxed">
-            India's first community-based mentorship platform that connects freshers with placed seniors to help them step up with guidance, confidence, and clarity.
+           India&rsquo;s first community-based mentorship platform that connects freshers with placed seniors to help them step up with guidance, confidence, and clarity.
           </p>
         </div>
 
