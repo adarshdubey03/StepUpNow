@@ -55,7 +55,7 @@ const Footer = () => {
 
         {/* Social + Language */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center pt-6 gap-6">
-          <div className="flex flex-wrap gap-10 text-2xl text-gray-300">
+          <div className="flex flex-wrap gap-8 text-2xl text-gray-300">
             <a href="#" aria-label="Instagram" className="hover:text-white"><FaInstagram /></a>
             <a href="#" aria-label="LinkedIn" className="hover:text-white"><FaLinkedin /></a>
             <a href="#" aria-label="Twitter" className="hover:text-white"><FaTwitter /></a>

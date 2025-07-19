@@ -79,7 +79,7 @@ const Navbar = () => {
                     onClick={() => setMenuOpen(!menuOpen)}
                     className="text-gray-300 hover:text-white focus:outline-none"
                   >
-                    {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                    {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-7 h-7" />}
                   </button>
                 </>
               )}
