@@ -17,41 +17,41 @@ const Footer = () => {
         {/* Logo and Description */}
         <div className="space-y-8 max-w-sm">
           <h1 className="text-3xl font-bold">StepUpNow</h1>
-          <p className="text-gray-200 mb-16 text-lg leading-relaxed">
+          <p className="text-gray-300 text-lg leading-relaxed">
             India's first community-based mentorship platform that connects freshers with placed seniors to help them step up with guidance, confidence, and clarity.
           </p>
         </div>
 
-        {/* Footer Columns (Responsive Grid) */}
+        {/* Footer Columns */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-          <div>
+          <nav>
             <h4 className="font-semibold mb-6 text-xl">Explore</h4>
             <ul className="space-y-3 text-base text-gray-300">
               <li><a href="/">Home</a></li>
               <li><a href="/mentors">Mentors</a></li>
               <li><a href="/mentorsignup">Become a Mentor</a></li>
             </ul>
-          </div>
-          <div>
+          </nav>
+          <nav>
             <h4 className="font-semibold mb-6 text-xl">Connect</h4>
             <ul className="space-y-3 text-base text-gray-300">
               <li><a href="/contact">Contact</a></li>
               <li><a href="mailto:support@stepupnow.in">Email Support</a></li>
               <li><a href="/community">Community</a></li>
             </ul>
-          </div>
-          <div>
+          </nav>
+          <nav>
             <h4 className="font-semibold mb-6 text-xl">Legal</h4>
             <ul className="space-y-3 text-base text-gray-300">
               <li><a href="/privacy">Privacy Policy</a></li>
               <li><a href="/terms">Terms of Use</a></li>
             </ul>
-          </div>
+          </nav>
         </div>
 
-        {/* Social Icons + Language */}
+        {/* Social + Language */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center pt-6 gap-6">
-          <div className="flex flex-wrap gap-10 text-2xl text-gray-300">
+          <div className="flex flex-wrap gap-6 text-2xl text-gray-300">
             <a href="#" aria-label="Instagram" className="hover:text-white"><FaInstagram /></a>
             <a href="#" aria-label="LinkedIn" className="hover:text-white"><FaLinkedin /></a>
             <a href="#" aria-label="Twitter" className="hover:text-white"><FaTwitter /></a>
@@ -65,10 +65,10 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="border-t border-gray-700 pt-6 text-center text-gray-400 text-medium">
+        {/* Bottom Text */}
+        <div className="border-t border-gray-700 pt-6 text-center text-gray-400 text-base">
           &copy; {new Date().getFullYear()} StepUpNow. All rights reserved. <br />
-          Built with ❤️ by <span className="text-white font-lg">Adarsh Dubey</span>
+          Built with ❤️ by <span className="text-white">Adarsh Dubey</span>
         </div>
       </div>
     </footer>
