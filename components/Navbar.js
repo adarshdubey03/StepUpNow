@@ -15,7 +15,7 @@ const Navbar = () => {
 
   return (
     <header className="w-full bg-gradient-to-r from-black via-gray-900 to-black border-b border-gray-800 shadow-lg z-50 fixed top-0 left-0">
-      <div className="max-w-6xl mx-auto flex items-center justify-between px-6 py-4">
+      <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
         <Link
           href="/"
           className="text-2xl sm:text-2xl md:text-3xl font-extrabold tracking-tight text-white hover:text-gray-300 transition"

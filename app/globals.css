@@ -21,4 +21,7 @@ body{
   scrollbar-width: thin;
 }
 
+@import "react-datepicker/dist/react-datepicker.css";
+
+
 

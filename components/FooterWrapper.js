@@ -5,7 +5,11 @@ import Footer from "@/components/Footer";
 
 export default function FooterWrapper() {
   const pathname = usePathname();
-  const hideFooter = pathname === "/login" || pathname === "/Signup";
+
+  const hideFooter =
+    pathname === "/login" ||
+    pathname === "/Signup" ||
+    pathname.startsWith("/dashboard"); // ✅ Hides on dashboard and its subroutes
 
   if (hideFooter) return null;
 
