@@ -3,6 +3,8 @@
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import Loader from "@/components/Loader";
+
 
 export default function Dashboard() {
   const { data: session, status } = useSession();
@@ -97,7 +99,7 @@ export default function Dashboard() {
           <h3 className="text-2xl font-bold mb-4">My Bookings</h3>
 
           {loadingPayments ? (
-            <p className="text-gray-400">Loading your bookings...</p>
+            <Loader />
           ) : payments.length === 0 ? (
             <p className="text-gray-400">You have no bookings yet.</p>
           ) : (

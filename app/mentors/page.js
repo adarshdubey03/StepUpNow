@@ -3,6 +3,9 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
+import Loader from "@/components/Loader";
+
+
 
 export default function MentorsPage() {
   const [mentors, setMentors] = useState([]);
@@ -98,10 +101,11 @@ export default function MentorsPage() {
 
         {/* CONTENT */}
         {loading ? (
-          <p className="text-center text-gray-400">Loading mentors...</p>
+          <Loader />
         ) : filteredMentors.length === 0 ? (
           <p className="text-center text-gray-400">No mentors found.</p>
         ) : (
+
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredMentors.map((mentor) => (
               <motion.div
@@ -142,7 +146,7 @@ export default function MentorsPage() {
                     LinkedIn
                   </a>
                   <button
-                     onClick={() => router.push(`/book/${mentor._id}`)}
+                    onClick={() => router.push(`/book/${mentor._id}`)}
                     className="bg-blue-600 text-white cursor-pointer px-4 py-2 rounded hover:bg-blue-700 transition"
                   >
                     Book
