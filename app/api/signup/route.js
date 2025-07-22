@@ -4,22 +4,22 @@ import connectDB from "@/db/mongoosedb";
 import User from "@/models/user";
 
 export async function POST(request) {
-  console.log("🚀 Incoming signup request...");
+  console.log(" Incoming signup request...");
   try {
     await connectDB();
 
     const body = await request.json();
     const { name, email, password } = body;
-    console.log("📦 Body:", { name, email, password });
+    console.log(" Body:", { name, email, password });
 
     if (!name || !email || !password) {
-      console.log("❌ Missing fields");
+      console.log(" Missing fields");
       return NextResponse.json({ error: "All fields are required" }, { status: 400 });
     }
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      console.log("⚠️ Email already exists");
+      console.log(" Email already exists");
       return NextResponse.json({ error: "Email already registered" }, { status: 400 });
     }
 
@@ -30,10 +30,10 @@ export async function POST(request) {
       password: hashedPassword,
     });
 
-    console.log("✅ User created");
+    console.log(" User created");
     return NextResponse.json({ success: true });
   } catch (err) {
-    console.error("🔥 Server error:", err);
+    console.error(" Server error:", err);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }

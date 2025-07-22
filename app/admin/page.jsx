@@ -11,15 +11,13 @@ export default function AdminPage() {
   const [pendingMentors, setPendingMentors] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Restrict to only your email
   useEffect(() => {
-    if (status === "loading") return; // wait for session
+    if (status === "loading") return;
     if (!session?.user?.email || session.user.email !== "adarshdubeyisro03@gmail.com") {
-      router.push("/"); // redirect to home if not admin
+      router.push("/");
     }
   }, [session, status, router]);
 
-  // Fetch pending mentors
   useEffect(() => {
     if (!session?.user?.email || session.user.email !== "adarshdubeyisro03@gmail.com") return;
 
@@ -37,7 +35,6 @@ export default function AdminPage() {
     fetchPending();
   }, [session]);
 
-  // Approve mentor handler
   async function approveMentor(id) {
     try {
       const res = await fetch('/api/mentors/approve', {
@@ -68,7 +65,6 @@ export default function AdminPage() {
     }
   }
 
-  // Wait for session check
   if (status === "loading" || !session) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-black text-white">

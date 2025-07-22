@@ -6,9 +6,9 @@ export async function POST(req) {
   console.log(" Connecting to DB...");
   await connectDB();
 
-  console.log("🔑 RAZORPAY_KEY_ID:", process.env.RAZORPAY_KEY_ID);
-  console.log("🔑 RAZORPAY_KEY_SECRET:", process.env.RAZORPAY_KEY_SECRET);
-  console.log("🔑 NEXT_PUBLIC_RAZORPAY_KEY_ID:", process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID);
+  console.log(" RAZORPAY_KEY_ID:", process.env.RAZORPAY_KEY_ID);
+  console.log(" RAZORPAY_KEY_SECRET:", process.env.RAZORPAY_KEY_SECRET);
+  console.log(" NEXT_PUBLIC_RAZORPAY_KEY_ID:", process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID);
 
   if (!process.env.RAZORPAY_KEY_ID || !process.env.RAZORPAY_KEY_SECRET || !process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID) {
     console.error(" Missing Razorpay environment variables");

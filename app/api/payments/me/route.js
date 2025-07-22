@@ -6,16 +6,16 @@ import Payment from "@/models/payment";
 
 export async function GET(req) {
   try {
-    console.log("🔍 API HIT: /api/payments/me");
+    console.log(" API HIT: /api/payments/me");
 
     await connectDB();
-    console.log("✅ Connected to DB");
+    console.log(" Connected to DB");
 
     const session = await getServerSession(authOptions);
-    console.log("🧑 Session:", session);
+    console.log(" Session:", session);
 
     if (!session || !session.user?.id) {
-      console.log("🚫 Unauthorized - no session user id");
+      console.log(" Unauthorized - no session user id");
       return NextResponse.json([], { status: 200 }); 
     }
 
@@ -23,15 +23,14 @@ export async function GET(req) {
       .populate("mentor")
       .sort({ createdAt: -1 });
 
-    // 💡 Ensure always array
     if (!Array.isArray(payments)) payments = [];
 
-    console.log("💰 Payments fetched:", payments);
+    console.log(" Payments fetched:", payments);
 
     return NextResponse.json(payments);
 
   } catch (err) {
-    console.error("🔥 Error in /api/payments/me:", err);
+    console.error(" Error in /api/payments/me:", err);
     return NextResponse.json([], { status: 500 });
   }
 }

@@ -53,22 +53,20 @@ export const authOptions = {
     async jwt({ token, user, account }) {
       await connectDB();
 
-      // If login via Credentials
       if (user) {
         token.id = user.id;
       }
 
-      // If login via Google
       if (account?.provider === "google") {
         let dbUser = await User.findOne({ email: token.email });
         if (!dbUser) {
-          console.log("🚀 Creating new user in DB for Google login:", token.email);
+          console.log(" Creating new user in DB for Google login:", token.email);
           dbUser = await User.create({
             name: token.name || "No Name",
             email: token.email,
           });
         } else {
-          console.log("✅ Found existing user in DB for Google login:", token.email);
+          console.log(" Found existing user in DB for Google login:", token.email);
         }
         token.id = dbUser._id;
       }
@@ -84,7 +82,7 @@ export const authOptions = {
     },
 
     async redirect({ baseUrl }) {
-      return baseUrl; // always redirect to "/"
+      return baseUrl;
     },
   },
 };

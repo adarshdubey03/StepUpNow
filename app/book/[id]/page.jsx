@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { useSession } from "next-auth/react";
-import Loader from "@/components/Loader"; // ✅ IMPORTED
+import Loader from "@/components/Loader";
 
 function loadScript(src) {
   return new Promise((resolve) => {
@@ -95,7 +95,7 @@ export default function BookMentorPage() {
   };
 
   if (loading) {
-    return <Loader />; // ✅ REPLACED INLINE LOADER
+    return <Loader />;
   }
 
   if (!mentor) {

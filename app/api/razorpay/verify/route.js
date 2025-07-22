@@ -37,7 +37,7 @@ export async function POST(req) {
 
     return NextResponse.json({ status: "success" });
   } else {
-    console.log("❌ Invalid signature. Possible fraud.");
+    console.log(" Invalid signature. Possible fraud.");
     return NextResponse.json({ status: "failed" }, { status: 400 });
   }
 }

@@ -20,22 +20,22 @@ const Mentors = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 md:gap-10 justify-items-center">
             {[
               {
-                name: "Nishant Dangi",
+                name: "Adarsh Dubey",
                 college: "IIT Delhi · CSE · AIR 512",
                 place: "Placed at Google",
-                img: "/adarsh.jpg"
+                img: "/adarsh dubey.jpg"
               },
               {
                 name: "Rohit Prajapat",
                 college: "NIT Trichy · ECE · AIR 1023",
                 place: "Intern @ Qualcomm",
-                img: "/rohit.jpg"
+                img: "/rohit prajapat.jpeg"
               },
               {
                 name: "Samyak Shende",
                 college: "IIIT Hyderabad · CS · AIR 312",
                 place: "Placed at Atlassian",
-                img: "/sam.jpg"
+                img: "/samyak shende.webp"
               },
             ].map((mentor, idx) => (
               <div 

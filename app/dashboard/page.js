@@ -52,7 +52,7 @@ export default function Dashboard() {
   return (
     <div className="relative min-h-[85vh] bg-black text-white flex items-center justify-center px-6 py-12">
       <div className="w-full max-w-6xl mx-auto flex flex-col md:flex-row gap-8 border border-gray-800 p-8 rounded-xl bg-gray-950 shadow-xl">
-        {/* LEFT COLUMN: Profile + Stats */}
+        {/* LEFT COLUMN */}
         <div className="flex-1 flex flex-col items-center md:items-start text-center md:text-left space-y-6">
           <div className="flex flex-col items-center md:items-start space-y-4">
             <div className="w-24 h-24 rounded-full bg-gray-700 flex items-center justify-center">
@@ -94,7 +94,7 @@ export default function Dashboard() {
           </button>
         </div>
 
-        {/* RIGHT COLUMN: My Bookings */}
+        {/* RIGHT COLUMN */}
         <div className="flex-1 flex flex-col space-y-4">
           <h3 className="text-2xl font-bold mb-4">My Bookings</h3>
 
