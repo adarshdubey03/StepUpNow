@@ -6,6 +6,7 @@ import Mentors from "@/components/Mentors";
 import Testimonials from "@/components/Testimonials";
 import FinalPitch from "@/components/FinalPitch";
 import MentorSignup from "@/components/MentorSignup";
+import FaqSection from "@/components/FaqSection";
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
       <Mentors />
       <Testimonials />
       <MentorSignup />
+      <FaqSection />
       <FinalPitch />
     </>
   );

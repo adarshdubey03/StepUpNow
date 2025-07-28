@@ -136,7 +136,7 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* Logout Modal */}
+      {/* Logout Model */}
       {showConfirmLogout && (
         <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
           <div className="bg-gray-950 border border-gray-700 rounded-xl p-8 max-w-sm w-full shadow-xl">
