@@ -1,10 +1,5 @@
-"use client";
-import { useSearchParams } from "next/navigation";
-import Link from "next/link";
-
-export default function ThankYouPage() {
-  const searchParams = useSearchParams();
-  const mentor = searchParams.get("mentor");
+export default function ThankYouPage({ searchParams }) {
+  const mentor = searchParams?.mentor;
 
   return (
     <div className="min-h-screen flex flex-col justify-center items-center bg-black text-white px-4">
