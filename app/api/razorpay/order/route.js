@@ -34,7 +34,7 @@ export async function POST(req) {
     key_secret: process.env.RAZORPAY_KEY_SECRET,
   });
 
-  const receiptId = body.userId 
+  const receiptId = body.userId
     ? `user_${body.userId}_order_${Math.floor(Math.random() * 10000)}`
     : `guest_order_${Math.floor(Math.random() * 10000)}`;
 
@@ -56,6 +56,7 @@ export async function POST(req) {
       amount: order.amount,
       done: false,
     });
+
 
     console.log(" Payment record created in DB:", payment);
 

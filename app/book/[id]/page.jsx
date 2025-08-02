@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import Loader from "@/components/Loader";
 
@@ -17,6 +17,7 @@ function loadScript(src) {
 
 export default function BookMentorPage() {
   const { id } = useParams();
+  const router = useRouter();
   const { data: session } = useSession();
   const [mentor, setMentor] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -38,6 +39,12 @@ export default function BookMentorPage() {
   }, [id]);
 
   const handlePayment = async () => {
+    if (!session) {
+      alert("Please login to book a session");
+      window.location.href = "/login";
+      return;
+    }
+
     const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js");
     if (!res) {
       alert("Razorpay SDK failed to load.");
@@ -49,8 +56,8 @@ export default function BookMentorPage() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         amount: mentor.price,
-        userId: session?.user?.id || null,
-        mentorId: mentor._id
+        userId: session.user.id,
+        mentorId: mentor._id,
       }),
     });
 
@@ -77,14 +84,16 @@ export default function BookMentorPage() {
 
         const verifyData = await verifyRes.json();
         if (verifyData.status === "success") {
-          alert("Payment successful and verified! 🎉");
+          // ✅ Redirect to Thank You page
+          const mentorName = encodeURIComponent(mentor.name);
+          router.push(`/thankyou?mentor=${mentorName}`);
         } else {
           alert("Payment verification failed. Please contact support.");
         }
       },
       prefill: {
-        name: "Test User",
-        email: "test@example.com",
+        name: session.user.name || "Test User",
+        email: session.user.email || "test@example.com",
         contact: "9999999999",
       },
       theme: { color: "#6366F1" },

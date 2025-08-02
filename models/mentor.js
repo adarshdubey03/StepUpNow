@@ -12,11 +12,10 @@ const mentorSchema = new mongoose.Schema({
   bio: String,
   price: Number,
   profileImage: String,
-  verified: {                   
+  verified: {
     type: Boolean,
     default: false
-  }
+  },
 }, { timestamps: true });
 
 export default mongoose.models.Mentor || mongoose.model("Mentor", mentorSchema);
-

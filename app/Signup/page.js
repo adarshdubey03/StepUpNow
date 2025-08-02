@@ -34,7 +34,7 @@ export default function Signup() {
         setError(data.error || "Something went wrong");
       } else {
         setSuccess("Signup successful! Redirecting...");
-        setTimeout(() => router.push("/"), 1500);
+        setTimeout(() => router.push("/login"), 1500);
       }
     } catch (err) {
       setError("Network error. Please try again.");
