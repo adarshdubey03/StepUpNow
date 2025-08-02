@@ -42,9 +42,9 @@ export default function Dashboard() {
 
   useEffect(() => {
     const checkPhone = async () => {
-      if (!session?.user?.email) return;
+      if (!session || !session.user || !session.user.email) return;
       try {
-        const res = await fetch(`/api/user/by-email?email=${session.user.email}`);
+        const res = await fetch(`/api/user/by-email?email=${encodeURIComponent(session.user.email)}`);
         const data = await res.json();
         setUserHasPhone(data?.user?.phone ? true : false);
       } catch (err) {
@@ -88,7 +88,7 @@ export default function Dashboard() {
               </svg>
             </div>
             <h2 className="text-3xl font-bold">
-              {session?.user?.name || session?.user?.email || "User"}
+              {(session && session.user && (session.user.name || session.user.email)) || "User"}
             </h2>
           </div>
 
@@ -96,7 +96,7 @@ export default function Dashboard() {
             <div className="bg-yellow-700 border border-yellow-500 text-white px-4 py-3 rounded shadow-md">
               <p className="font-semibold mb-2">⚠️ Your phone number is not verified.</p>
               <p className="mb-3 text-sm">Please verify your phone to receive session updates and reminders.</p>
-              <VerifyPhone userId={session?.user?.id} onVerified={() => setUserHasPhone(true)} />
+              <VerifyPhone userId={session?.user?.id ?? ""} onVerified={() => setUserHasPhone(true)} />
             </div>
           )}
 
