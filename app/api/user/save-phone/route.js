@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
-import dbConnect from "@/lib/dbConnect";
+import connectDB from "@/db/mongoosedb";
 import User from "@/models/user";
 
 export async function POST(req) {
-  await dbConnect();
+  await connectDB();
 
   const body = await req.json();
   const { userId, phone } = body;

@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import Loader from "@/components/Loader";
 import dynamic from "next/dynamic";
 
-const VerifyPhone = dynamic(() => import("@/components/verifyPhone").then(mod => mod.default), { ssr: false });
+const VerifyPhone = dynamic(() => import("@/components/VerifyPhone").then(mod => mod.default), { ssr: false });
 
 export default function Dashboard() {
   const { data: session, status } = useSession();
