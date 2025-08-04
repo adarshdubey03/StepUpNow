@@ -4,9 +4,7 @@ import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Loader from "@/components/Loader";
-import dynamic from "next/dynamic";
 
-const VerifyPhone = dynamic(() => import("@/components/VerifyPhone").then(mod => mod.default), { ssr: false });
 
 export default function Dashboard() {
   const { data: session, status } = useSession();
@@ -14,7 +12,6 @@ export default function Dashboard() {
   const [payments, setPayments] = useState([]);
   const [loadingPayments, setLoadingPayments] = useState(true);
   const [showConfirmLogout, setShowConfirmLogout] = useState(false);
-  const [userHasPhone, setUserHasPhone] = useState(null);
 
   useEffect(() => {
     if (status === "unauthenticated") {
@@ -25,7 +22,7 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchPayments = async () => {
       try {
-        const res = await fetch(`/api/payments/me`);
+        const res = await fetch("/api/payments/me");
         const data = await res.json();
         setPayments(data || []);
       } catch (err) {
@@ -40,30 +37,16 @@ export default function Dashboard() {
     }
   }, [status]);
 
-  useEffect(() => {
-    const checkPhone = async () => {
-      if (!session || !session.user || !session.user.email) return;
-      try {
-        const res = await fetch(`/api/user/by-email?email=${encodeURIComponent(session.user.email)}`);
-        const data = await res.json();
-        setUserHasPhone(data?.user?.phone ? true : false);
-      } catch (err) {
-        console.error("Phone check failed:", err);
-        setUserHasPhone(true); // fallback to let dashboard load
-      }
-    };
-
-    if (status === "authenticated") {
-      checkPhone();
-    }
-  }, [session, status]);
-
-  if (status === "loading" || userHasPhone === null) {
+  if (status === "loading") {
     return (
       <div className="min-h-screen flex items-center justify-center bg-black text-white">
         <p>Loading...</p>
       </div>
     );
+  }
+
+  if (status === "unauthenticated") {
+    return null;
   }
 
   return (
@@ -88,17 +71,9 @@ export default function Dashboard() {
               </svg>
             </div>
             <h2 className="text-3xl font-bold">
-              {(session && session.user && (session.user.name || session.user.email)) || "User"}
+              {session?.user?.name || session?.user?.email || "User"}
             </h2>
           </div>
-
-          {!userHasPhone && (
-            <div className="bg-yellow-700 border border-yellow-500 text-white px-4 py-3 rounded shadow-md">
-              <p className="font-semibold mb-2">⚠️ Your phone number is not verified.</p>
-              <p className="mb-3 text-sm">Please verify your phone to receive session updates and reminders.</p>
-              <VerifyPhone userId={session?.user?.id ?? ""} onVerified={() => setUserHasPhone(true)} />
-            </div>
-          )}
 
           <div className="w-full space-y-4">
             <div className="bg-gray-900 p-4 rounded-lg shadow-md flex flex-col items-center md:items-start">

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import connectDB from "@/db/mongoosedb";
+import mentor from "@/models/mentor";
 import Payment from "@/models/payment";
 
 export async function GET(req) {
