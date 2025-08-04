@@ -4,6 +4,7 @@ import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Loader from "@/components/Loader";
+import ReviewForm from "@/components/ReviewForm";
 
 
 export default function Dashboard() {
@@ -12,6 +13,7 @@ export default function Dashboard() {
   const [payments, setPayments] = useState([]);
   const [loadingPayments, setLoadingPayments] = useState(true);
   const [showConfirmLogout, setShowConfirmLogout] = useState(false);
+  const [upcomingDate, setUpcomingDate] = useState(null); // ✅ new state
 
   useEffect(() => {
     if (status === "unauthenticated") {
@@ -25,6 +27,17 @@ export default function Dashboard() {
         const res = await fetch("/api/payments/me");
         const data = await res.json();
         setPayments(data || []);
+
+        // ✅ compute upcoming date
+        if (data?.length) {
+          const futureDates = data
+            .map(p => p.sessionDate)
+            .filter(d => new Date(d) > new Date())
+            .sort((a, b) => new Date(a) - new Date(b));
+          if (futureDates.length > 0) {
+            setUpcomingDate(futureDates[0]);
+          }
+        }
       } catch (err) {
         console.error("Failed to fetch payments:", err);
       } finally {
@@ -50,7 +63,7 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="relative min-h-[85vh] bg-black text-white flex items-center justify-center px-6 py-12">
+    <div className="relative min-h-[85vh] bg-gradient-to-br from-black via-gray-900 to-black text-white flex items-center justify-center px-6 py-12">
       <div className="w-full max-w-6xl mx-auto flex flex-col md:flex-row gap-8 border border-gray-800 p-8 rounded-xl bg-gray-950 shadow-xl">
         {/* LEFT COLUMN */}
         <div className="flex-1 flex flex-col items-center md:items-start text-center md:text-left space-y-6">
@@ -76,10 +89,21 @@ export default function Dashboard() {
           </div>
 
           <div className="w-full space-y-4">
+            {/* ✅ Upcoming Session block */}
             <div className="bg-gray-900 p-4 rounded-lg shadow-md flex flex-col items-center md:items-start">
-              <h3 className="text-xl font-semibold mb-1">Groups Joined</h3>
-              <p className="text-2xl font-bold">4</p>
+              <h3 className="text-xl font-semibold mb-1">Upcoming Session</h3>
+              <p className="text-xl font-medium">
+                {upcomingDate
+                  ? new Date(upcomingDate).toLocaleDateString("en-IN", {
+                    weekday: "long",
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })
+                  : "No upcoming sessions"}
+              </p>
             </div>
+
             <div className="bg-gray-900 p-4 rounded-lg shadow-md flex flex-col items-center md:items-start">
               <h3 className="text-xl font-semibold mb-1">Sessions Taken</h3>
               <p className="text-2xl font-bold">{payments.length}</p>
@@ -119,24 +143,32 @@ export default function Dashboard() {
                     <p className="text-gray-400 text-sm">
                       Amount: ₹{payment.amount / 100}
                     </p>
+
+                    {payment.done && (
+                      <a
+                        href={`/review?booking=${payment._id}&mentor=${payment.mentor?._id}`}
+                        className="inline-block mt-3 bg-white text-black text-sm font-semibold px-4 py-2 rounded hover:bg-gray-200 transition"
+                      >
+                        Rate & Review
+                      </a>
+                    )}
                   </div>
+
                   <span
-                    className={`mt-2 md:mt-0 px-4 py-1 rounded-full text-sm font-semibold min-w-[110px] text-center ${
-                      payment.done
-                        ? "bg-green-600 text-white"
-                        : "bg-yellow-600 text-white"
-                    }`}
+                    className={`mt-2 md:mt-0 px-4 py-1 rounded-full text-sm font-semibold min-w-[110px] text-center ${payment.done ? "bg-green-600 text-white" : "bg-yellow-600 text-white"
+                      }`}
                   >
                     {payment.done ? "Completed" : "Pending"}
                   </span>
                 </div>
               ))}
+
             </div>
           )}
         </div>
       </div>
 
-      {/* Logout Model */}
+      {/* Logout Modal */}
       {showConfirmLogout && (
         <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
           <div className="bg-gray-950 border border-gray-700 rounded-xl p-8 max-w-sm w-full shadow-xl">

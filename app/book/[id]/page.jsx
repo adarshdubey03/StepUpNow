@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import Loader from "@/components/Loader";
+import DatePicker from "react-datepicker"; // ✅ NEW
+import "react-datepicker/dist/react-datepicker.css"; // ✅ NEW
 
 function loadScript(src) {
   return new Promise((resolve) => {
@@ -21,6 +23,7 @@ export default function BookMentorPage() {
   const { data: session } = useSession();
   const [mentor, setMentor] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [selectedDate, setSelectedDate] = useState(null); // ✅ NEW
 
   useEffect(() => {
     const fetchMentor = async () => {
@@ -45,6 +48,11 @@ export default function BookMentorPage() {
       return;
     }
 
+    if (!selectedDate) {
+      alert("Please select a session date before proceeding.");
+      return;
+    }
+
     const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js");
     if (!res) {
       alert("Razorpay SDK failed to load.");
@@ -58,6 +66,7 @@ export default function BookMentorPage() {
         amount: mentor.price,
         userId: session.user.id,
         mentorId: mentor._id,
+        sessionDate: selectedDate, // optionally send it to backend
       }),
     });
 
@@ -84,9 +93,8 @@ export default function BookMentorPage() {
 
         const verifyData = await verifyRes.json();
         if (verifyData.status === "success") {
-          // ✅ Redirect to Thank You page
           const mentorName = encodeURIComponent(mentor.name);
-          router.push(`/thankyou?mentor=${mentorName}`);
+          router.push(`/thankyou?bookingId=${orderData.bookingId}`);
         } else {
           alert("Payment verification failed. Please contact support.");
         }
@@ -137,7 +145,7 @@ export default function BookMentorPage() {
           </div>
         </div>
 
-        {/* RIGHT: Order summary */}
+        {/* RIGHT: Booking summary */}
         <div className="space-y-6 border-t md:border-t-0 md:border-l border-gray-700 pt-6 md:pt-0 md:pl-6 flex flex-col justify-center">
           <h2 className="text-2xl font-bold">Booking Summary</h2>
           <div className="space-y-2 text-gray-300">
@@ -145,6 +153,19 @@ export default function BookMentorPage() {
             <p><strong>Expertise:</strong> {mentor.skills.join(", ")}</p>
             <p><strong>Price:</strong> ₹{mentor.price} / session</p>
           </div>
+
+          {/* ✅ Date Picker */}
+          <div>
+            <label className="block mb-2 font-medium text-white">Select Session Date</label>
+            <DatePicker
+              selected={selectedDate}
+              onChange={(date) => setSelectedDate(date)}
+              minDate={new Date()}
+              placeholderText="Choose a date"
+              className="w-full px-4 py-2 bg-gray-800 border border-gray-600 rounded text-white"
+            />
+          </div>
+
           <button
             onClick={handlePayment}
             className="bg-white cursor-pointer text-black py-3 rounded hover:bg-gray-200 transition text-lg font-semibold"

@@ -54,8 +54,10 @@ export async function POST(req) {
       user: body.userId || null,
       mentor: body.mentorId || null,
       amount: order.amount,
+      sessionDate: body.sessionDate ? new Date(body.sessionDate) : null, // ✅ NEW
       done: false,
     });
+
 
 
     console.log(" Payment record created in DB:", payment);

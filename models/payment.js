@@ -16,6 +16,10 @@ const paymentSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    sessionDate: {
+      type: Date,
+      required: true, // or false if you want flexibility
+    },
     done: {
       type: Boolean,
       default: false,

@@ -54,7 +54,7 @@ export default function MentorSignup() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center bg-black text-white px-4 min-h-screen py-10">
+    <div className="flex flex-col justify-center items-center bg-gradient-to-br from-black via-gray-900 to-black text-white px-4 min-h-screen py-10">
       <form
         onSubmit={handleSubmit}
         className="bg-gray-950 p-10 rounded-2xl w-full max-w-4xl space-y-8 border border-gray-800 shadow-lg"

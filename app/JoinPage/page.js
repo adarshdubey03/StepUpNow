@@ -50,7 +50,7 @@ const JoinPage = () => {
   return (
     <>
   
-      <div className="min-h-screen bg-black text-white px-6 py-20">
+      <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black text-white px-6 py-20">
         <div className="max-w-4xl mx-auto text-center mb-20">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
             Find Your Community

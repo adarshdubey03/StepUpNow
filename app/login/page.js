@@ -25,8 +25,6 @@ export default function Login() {
       password: form.password,
     });
 
-    console.log("signIn result:", res);
-
     if (res?.ok && !res.error) {
       router.push("/");
     } else {
@@ -37,12 +35,14 @@ export default function Login() {
   };
 
   return (
-    <div className="flex h-[85vh] flex-col justify-center items-center bg-black text-white">
+    <div className="flex h-[85vh] flex-col justify-center items-center bg-gradient-to-br from-black via-gray-900 to-black text-white px-4">
       <form
         onSubmit={handleSubmit}
-        className="bg-gray-950 p-8 rounded-xl w-full max-w-sm space-y-6 "
+        className="bg-gray-950 p-8 rounded-xl w-full max-w-sm space-y-6 border border-gray-800 shadow-xl"
       >
-        <h3 className="text-3xl font-bold text-center">Enter your credentials to login</h3>
+        <h3 className="text-3xl font-bold text-center">
+          Enter your credentials to login
+        </h3>
         {error && <p className="text-red-400 text-center">{error}</p>}
 
         <input

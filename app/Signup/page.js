@@ -44,10 +44,10 @@ export default function Signup() {
   };
 
   return (
-    <div className="flex h-[85vh] flex-col justify-center items-center bg-black text-white">
+    <div className="flex h-[85vh] flex-col justify-center items-center bg-gradient-to-br from-black via-gray-900 to-black text-white px-4">
       <form
         onSubmit={handleSubmit}
-        className="bg-gray-950 p-8 rounded-xl w-full max-w-sm space-y-6"
+        className="bg-gray-950 p-8 rounded-xl w-full max-w-sm space-y-6 border border-gray-800 shadow-xl"
       >
         <h3 className="text-3xl font-bold text-center">
           Get your journey started with us
@@ -127,7 +127,7 @@ export default function Signup() {
               d="M43.6 20.5H42V20H24v8h11.3c-1.2 3.2-4.1 5.8-7.3 6.8l6.3 5.4C38.3 37.4 44 31 44 24c0-1.3-.1-2.7-.4-4z"
             />
           </svg>
-          <span >Continue with Google</span>
+          <span>Continue with Google</span>
         </button>
       </form>
     </div>
