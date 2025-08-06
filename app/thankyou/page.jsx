@@ -69,3 +69,6 @@ export default function ThankYouPage() {
     </div>
   );
 }
+
+// ✅ THIS LINE IS CRITICAL:
+export const dynamic = "force-dynamic";
