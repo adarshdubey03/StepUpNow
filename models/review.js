@@ -2,14 +2,20 @@ import mongoose from "mongoose";
 
 const reviewSchema = new mongoose.Schema(
   {
-    mentor: {
+    paymentId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Mentor",
+      ref: "Payment",
       required: true,
+      unique: true, // Only one review per completed session
     },
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
+      required: true,
+    },
+    mentor: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Mentor",
       required: true,
     },
     rating: {
@@ -18,13 +24,9 @@ const reviewSchema = new mongoose.Schema(
       min: 1,
       max: 5,
     },
-    comment: {
+    text: {
       type: String,
-      maxlength: 1000,
-    },
-    bookingId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Payment",
+      trim: true,
     },
   },
   { timestamps: true }

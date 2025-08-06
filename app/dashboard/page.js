@@ -3,8 +3,9 @@
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import Loader from "@/components/Loader";
-import ReviewForm from "@/components/ReviewForm";
+
 
 
 export default function Dashboard() {
@@ -145,12 +146,12 @@ export default function Dashboard() {
                     </p>
 
                     {payment.done && (
-                      <a
-                        href={`/review?booking=${payment._id}&mentor=${payment.mentor?._id}`}
+                      <Link
+                        href={`/review/${payment._id}`}
                         className="inline-block mt-3 bg-white text-black text-sm font-semibold px-4 py-2 rounded hover:bg-gray-200 transition"
                       >
                         Rate & Review
-                      </a>
+                      </Link>
                     )}
                   </div>
 
