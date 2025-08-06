@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 
-export default function ThankYouPage() {
+function ThankYouContent() {
   const searchParams = useSearchParams();
   const bookingId = searchParams.get("bookingId");
 
@@ -70,5 +70,13 @@ export default function ThankYouPage() {
   );
 }
 
-// ✅ THIS LINE IS CRITICAL:
+export default function ThankYouPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-black text-white flex items-center justify-center">Loading...</div>}>
+      <ThankYouContent />
+    </Suspense>
+  );
+}
+
+// ✅ Important for Vercel — force dynamic rendering:
 export const dynamic = "force-dynamic";
