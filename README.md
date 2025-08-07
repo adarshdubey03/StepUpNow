@@ -31,16 +31,6 @@ Built with Next.js 14, MongoDB, Razorpay, and Firebase for OTP.
 
 ---
 
-### 📸 Screenshots
-
-> (Add these in a `/screenshots` folder and reference below)
-
-![Home Page](./screenshots/home.png)  
-![Booking Flow](./screenshots/booking.png)  
-![Admin Dashboard](./screenshots/admin.png)
-
----
-
 ### 🧠 Lessons Learned
 
 - Handling Razorpay payment lifecycle
