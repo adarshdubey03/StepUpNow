@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🧑‍🏫 StepUpNow
 
-## Getting Started
+StepUpNow is a mentorship platform that connects freshers with placed seniors for paid 1-on-1 sessions.  
+Built with Next.js 14, MongoDB, Razorpay, and Firebase for OTP.
 
-First, run the development server:
+### 🔗 Live Site  
+👉 [https://step-up-now.vercel.app](https://step-up-now.vercel.app)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 🚀 Features
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- 🔐 Google & Email Auth (NextAuth.js)
+- 📅 Book 1-on-1 sessions with mentors
+- 💳 Razorpay Payment Integration
+- ✅ Firebase Phone Number Verification
+- 📧 Email Notifications
+- 🔐 Admin Dashboard
+- 📱 Responsive UI
+- 🧠 Ratings & Reviews for Mentors
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+### 🛠️ Tech Stack
 
-To learn more about Next.js, take a look at the following resources:
+- Frontend: Next.js 14, TailwindCSS
+- Backend: MongoDB, Mongoose, Next.js API Routes
+- Auth: NextAuth.js + Firebase OTP
+- Payments: Razorpay Integration
+- Deployment: Vercel
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 📸 Screenshots
 
-## Deploy on Vercel
+> (Add these in a `/screenshots` folder and reference below)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+![Home Page](./screenshots/home.png)  
+![Booking Flow](./screenshots/booking.png)  
+![Admin Dashboard](./screenshots/admin.png)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+### 🧠 Lessons Learned
+
+- Handling Razorpay payment lifecycle
+- Integrating Firebase OTP in a Next.js app
+- Role-based access (admin vs user)
+- MongoDB schema design & booking system
+- Building reusable components and clean UI
+
+---
+
+### 📜 License
+
+MIT – feel free to fork or contribute.
+
+---
+
+### 🙋‍♂️ Author
+
+**Adarsh Dubey**  
+🔗 [GitHub](https://github.com/adarshdubey03) | 📧 adarshdubey03@gmail.com
+
