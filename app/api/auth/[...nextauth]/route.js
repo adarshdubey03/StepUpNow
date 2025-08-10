@@ -13,7 +13,7 @@ export const authOptions = {
         email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials) {
+      async authorize(credentials) { 
         await connectDB();
 
         const user = await User.findOne({ email: credentials.email });

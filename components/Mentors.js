@@ -20,7 +20,7 @@ const Mentors = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-items-center">
           {[
             {
-              name: "Adarsh Dubey",
+              name: "Harshil Katpara",
               college: "IIT Delhi · CSE · AIR 512",
               place: "Placed at Google",
               quote: "Cracked SDE rounds with strong DSA + projects.",

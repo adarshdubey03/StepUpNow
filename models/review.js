@@ -6,7 +6,7 @@ const reviewSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Payment",
       required: true,
-      unique: true, // Only one review per completed session
+      unique: true, 
     },
     user: {
       type: mongoose.Schema.Types.ObjectId,
