@@ -71,12 +71,23 @@ export const authOptions = {
         token.id = dbUser._id;
       }
 
+      // 🔑 Always attach phone info from DB to token
+      if (token.email) {
+        const dbUser = await User.findOne({ email: token.email });
+        if (dbUser) {
+          token.phone = dbUser.phone || null;
+          token.phoneVerified = dbUser.phoneVerified || false;
+        }
+      }
+
       return token;
     },
 
     async session({ session, token }) {
       if (session?.user && token?.id) {
         session.user.id = token.id;
+        session.user.phone = token.phone || null;
+        session.user.phoneVerified = token.phoneVerified || false;
       }
       return session;
     },

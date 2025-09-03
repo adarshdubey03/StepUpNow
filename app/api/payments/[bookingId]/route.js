@@ -5,7 +5,8 @@ import Mentor from "@/models/mentor";
 export async function GET(req, { params }) {
   await connectDB();
 
-  const { bookingId } = params;
+  // ✅ await params
+  const { bookingId } = await params;
 
   try {
     const payment = await Payment.findById(bookingId).populate("mentor");

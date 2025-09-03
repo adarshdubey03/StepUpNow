@@ -18,8 +18,13 @@ const userSchema = new mongoose.Schema({
     type: String,
   },
   phone: {
-    type: String,    
+    type: String,
     required: false,
+    default: null,
+  },
+  phoneVerified: {
+    type: Boolean,
+    default: false,
   },
 }, { timestamps: true });
 
